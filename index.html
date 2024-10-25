@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Character encoding set to UTF-8 for universal compatibility -->
+    <meta charset="UTF-8">
+    <!-- Viewport settings for responsiveness on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Page title -->
+    <title>Mechatronics Automation Hub</title>
+    <!-- Including Alpine.js for handling reactivity and interactivity in a lightweight way -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Including Tailwind CSS for utility-first styling -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Including Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+      /* Keyframe animation for sliding effect (e.g., for carousel) */
+      @keyframes slide-left {
+        from {
+          transform: translateX(0);
+        }
+
+        to {
+          transform: translateX(-100%);
+        }
+      }
+
+      /* Infinite sliding animation for specific elements */
+      .slide-left-infinite {
+        animation: slide-left 50s linear infinite;
+      }
+
+      /* Accessibility improvement: Reduce motion for users who prefer it */
+      @media (prefers-reduced-motion: reduce) {
+        .slide-left-infinite {
+          animation: none;
+          /* Disabling animation for users with motion sensitivity */
+        }
+      }
+
+      /* Smooth scrolling for in-page navigation links */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Hide focus outline for mouse interactions, but allow it for keyboard navigation */
+      :focus:not(:focus-visible) {
+        outline: none;
+      }
+
+      /* Visually hidden class, but visible when focused, for screen readers */
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      /* When the "skip to content" link is focused, make it visible */
+      .sr-only:focus {
+        position: static;
+        width: auto;
+        height: auto;
+        margin: 0;
+        padding: 1rem;
+        background: #f3f4f6;
+        /* Light background */
+        color: #111827;
+        /* Dark text for contrast */
+        font-size: 1rem;
+        border: 2px solid #111827;
+        /* High contrast border */
+        clip: auto;
+        white-space: normal;
+        z-index: 100;
+        /* Ensure it's on top of other elements */
+      }
+    </style>
+  </head>
+  <body class="antialiased bg-white" x-data="{ open: false }">
+    <!-- Skip link for screen readers and keyboard navigation -->
+    <!-- Ensures users can quickly jump to the main content -->
+    <a href="#main-content" class="sr-only">Skip to content</a>
+    <!-- Navigation Bar -->
+    <header class="w-full py-6 bg-white shadow-md">
+      <div class="container mx-auto flex justify-between items-center px-4 sm:px-6 lg:px-8">
+        <!-- Logo with descriptive alt text for accessibility -->
+        <a href="#" class="text-lg font-semibold text-gray-700">
+          <img src="Images/CCC-One Line-Full Color.jpg" alt="Clovis Community College logo" class="h-10">
+        </a>
+        <!-- Desktop Navigation with accessible aria-label for main navigation -->
+        <nav class="hidden md:flex space-x-6" aria-label="Main navigation">
+          <!-- Ensured links are keyboard accessible and have sufficient color contrast -->
+          <a href="#home" class="text-gray-700 hover:text-blue-600">Home</a>
+          <a href="#whats-in-for-you" class="text-gray-700 hover:text-blue-600">What's In It For You</a>
+          <a href="#curriculum" class="text-gray-700 hover:text-blue-600">Curriculum</a>
+          <a href="#FAQs" class="text-gray-700 hover:text-blue-600">FAQs</a>
+          <a href="#testimonials" class="text-gray-700 hover:text-blue-600">Testimonials</a>
+        </nav>
+        <!-- Hamburger menu button for mobile navigation -->
+        <!-- Uses Alpine.js for toggling the menu, includes aria-expanded for accessibility -->
+        <div class="md:hidden">
+          <button @click="open = !open" aria-expanded="false" x-bind:aria-expanded="open.toString()" aria-label="Toggle menu" class="text-gray-700 hover:text-blue-600 focus:outline-none">
+            <!-- SVG icon for the menu button -->
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+        <!-- "Apply Now" button -->
+        <a href="https://www.cloviscollege.edu/admissions-and-aid/admissions/index.html" class="hidden md:flex border-2 border-black text-black px-4 py-2 rounded-full hover:bg-gray-200 transition flex items-center"> Apply Now <span class="ml-2" aria-hidden="true">→</span>
+        </a>
+      </div>
+      <!-- Mobile Navigation Menu -->
+      <!-- Uses transition for smooth animations and aria-label for accessibility -->
+      <nav x-show="open" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform -translate-y-4" x-transition:enter-end="opacity-100 transform translate-y-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 transform translate-y-0" x-transition:leave-end="opacity-0 transform -translate-y-4" class="md:hidden mt-4 space-y-2 text-center" aria-label="Mobile navigation">
+        <!-- Mobile navigation links -->
+        <a href="#home" class="block text-gray-700 hover:text-blue-600">Home</a>
+        <a href="#whats-in-for-you" class="block text-gray-700 hover:text-blue-600">What's In It For You</a>
+        <a href="#curriculum" class="block text-gray-700 hover:text-blue-600">Curriculum</a>
+        <a href="#FAQs" class="block text-gray-700 hover:text-blue-600">FAQs</a>
+        <a href="#testimonials" class="block text-gray-700 hover:text-blue-600">Testimonials</a>
+      </nav>
+    </header>
+    <!-- Hero Section -->
+    <section id="home" class="w-full bg-white py-16 relative bg-cover bg-center" style="background-image: url(Images/magicpattern-grid-pattern-1729753792910.png); background-repeat: no-repeat; background-size: cover; mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);">
+      <!-- Main container for the Hero section, centered and responsive -->
+      <div class="container mx-auto text-center px-4 sm:px-6 lg:px-8" data-aos="fade-up" data-aos-duration="1000">
+        <!-- Main heading (H1) with appropriate contrast and responsive size -->
+        <h1 class="text-4xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">New Program Announced: Mechatronics Industrial Automation</h1>
+        <!-- Introductory text paragraph with good color contrast and font size adjustment for different screen sizes -->
+        <p class="text-gray-700 mb-6 text-sm sm:text-base lg:text-lg"> The Mechatronics Industrial Automation program prepares students for high-demand jobs in the Central Valley, such as field service technician, industrial maintenance technician, maintenance mechanic, or maintenance repair mechanic. </p>
+        <!-- Button container, flex layout for responsive alignment -->
+        <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+          <!-- 'Apply Now' Button -->
+          <!-- Accessible with clear focus states (focus:ring), responsive sizes, good color contrast, and SVG for decoration -->
+          <a href="https://www.cloviscollege.edu/admissions-and-aid/admissions/index.html" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-white rounded-lg bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 transition-transform duration-300 ease-in-out transform hover:scale-105"> Apply Now
+            <!-- Decorative arrow icon in the button for clarity -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
+          <!-- 'Learn More' Button -->
+          <!-- Added focus:ring for keyboard accessibility, responsive, and clear contrast (text and border) -->
+          <a href="#" class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 transition-transform duration-300 ease-in-out transform hover:scale-105"> Learn More </a>
+        </div>
+      </div>
+      <!-- Logo Carousel animation, set to loop infinitely with hover-pause effect -->
+      <!-- aria-live="off" is used to prevent screen readers from being interrupted by the animation -->
+      <div class="logos group relative overflow-hidden whitespace-nowrap py-10" aria-live="off">
+        <!-- First set of images for the logo carousel -->
+        <div class="slide-left-infinite group-hover:animation-pause inline-block w-max" tabindex="0">
+          <!-- Images with descriptive alt text to inform screen readers -->
+          <img class="mx-4 inline h-48 w-auto rounded-lg" src="Images/JM3_4179.jpg" alt="Transistor equipment" />
+          <img class="mx-4 inline h-48 w-auto rounded-lg" src="Images/JM3_4184.jpg" alt="Automation device" />
+          <img class="mx-4 inline h-48 w-auto rounded-lg" src="Images/JM3_4206.jpg" alt="Equipment used in mechatronics lab" />
+          <img class="mx-4 inline h-48 w-auto rounded-lg" src="Images/JM3_4215.jpg" alt="Mechatronics toolkit" />
+          <img class="mx-4 inline h-48 w-auto rounded-lg" src="Images/JM3_4235.jpg" alt="Automation toolkit" />
+        </div>
+        <!-- Duplicate set of images for infinite scrolling effect -->
+        <div class="slide-left-infinite group-hover:animation-pause inline-block w-max" tabindex="0">
+          <img class="mx-4 inline h-48 w-auto rounded-lg" src="Images/JM3_4179.jpg" alt="Transistor equipment" />
+          <img class="mx-4 inline h-48 w-auto rounded-lg" src="Images/JM3_4184.jpg" alt="Automation device" />
+          <img class="mx-4 inline h-48 w-auto rounded-lg" src="Images/JM3_4206.jpg" alt="Equipment used in mechatronics lab" />
+          <img class="mx-4 inline h-48 w-auto rounded-lg" src="Images/JM3_4215.jpg" alt="Mechatronics toolkit" />
+          <img class="mx-4 inline h-48 w-auto rounded-lg" src="Images/JM3_4235.jpg" alt="Automation toolkit" />
+        </div>
+      </div>
+    </section>
+    <!-- "What's In It For You" Section -->
+    <section id="whats-in-for-you" class="bg-blue-50 py-10 sm:py-16 md:py-24">
+      <!-- Container for centering content with padding for responsive design -->
+      <div class="container mx-auto text-center px-4 sm:px-6 lg:px-8">
+        <!-- Introductory text with good contrast and responsive sizing -->
+        <p class="text-lg text-gray-600 mb-4"> Discover the advantages of enrolling in our Mechatronics Industrial Automation program. </p>
+        <!-- Main heading (H2) with proper contrast and responsive font size for larger screens -->
+        <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-12">Unlock Your Potential in Mechatronics</h2>
+        <!-- Grid layout for feature cards, adjusts to 1, 2, or 4 columns depending on screen size -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-10">
+          <!-- Card 1 -->
+          <!-- Accessible container with tabindex="0" to allow keyboard focus -->
+          <div class="bg-white shadow-lg rounded-lg p-6 sm:p-8" tabindex="0">
+            <!-- Card title with clear contrast -->
+            <h3 class="font-bold text-lg text-gray-900 mb-4">Competitive Salaries Await</h3>
+            <!-- Supporting text with good color contrast and spacing -->
+            <p class="text-gray-700 mb-4">Three-year average salary for full-time related employment: $65,680.</p>
+            <!-- Image with descriptive alt text for screen readers -->
+            <img class="rounded-lg w-full h-48 object-cover mb-4" src="Images/Competitive Salary Awaits.jpeg" alt="Competitive Salaries">
+            <p class="text-gray-600">Secure a rewarding career with competitive salaries and endless opportunities in the industrial automation sector.</p>
+          </div>
+          <!-- Card 2 -->
+          <div class="bg-white shadow-lg rounded-lg p-6 sm:p-8" tabindex="0">
+            <h3 class="font-bold text-lg text-gray-900 mb-4">Hands-On Experience</h3>
+            <p class="text-gray-700 mb-4">Gain practical skills in welding, hydraulics, electricity, and more.</p>
+            <img class="rounded-lg w-full h-48 object-cover mb-4" src="Images/Hands on experience.jpeg" alt="Hands-On Experience">
+            <p class="text-gray-600">Engage in immersive learning experiences that equip you with essential skills for the modern workforce.</p>
+          </div>
+          <!-- Card 3 -->
+          <div class="bg-white shadow-lg rounded-lg p-6 sm:p-8" tabindex="0">
+            <h3 class="font-bold text-lg text-gray-900 mb-4">Master Advanced Techniques</h3>
+            <p class="text-gray-700 mb-4">Learn predictive and preventative maintenance methods.</p>
+            <img class="rounded-lg w-full h-48 object-cover mb-4" src="Images/Master advanced techniques.jpeg" alt="Master Techniques">
+            <p class="text-gray-600">Delve into advanced maintenance techniques, including analysis and thermal applications, to stay ahead in technology.</p>
+          </div>
+          <!-- Card 4 -->
+          <div class="bg-white shadow-lg rounded-lg p-6 sm:p-8" tabindex="0">
+            <h3 class="font-bold text-lg text-gray-900 mb-4">Embrace the Future of Automation</h3>
+            <p class="text-gray-700 mb-4">Build skills in electronics and computerized equipment maintenance.</p>
+            <img class="rounded-lg w-full h-48 object-cover mb-4" src="Images/Future of automation.jpeg" alt="Embrace Automation">
+            <p class="text-gray-600">Prepare for the future by mastering the operation and maintenance of cutting-edge automated systems.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Curriculum Section -->
+    <section id="curriculum" class="bg-blue-100 py-10 sm:py-16 md:py-24">
+      <!-- Container with text center alignment and padding for responsive design -->
+      <div class="container mx-auto text-center px-4 sm:px-6 lg:px-8">
+        <!-- Section title with responsive font size and proper color contrast -->
+        <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-10">Curriculum</h2>
+        <!-- Grid layout for curriculum cards with 1, 2, or 3 columns depending on screen size -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
+          <!-- Card 1 -->
+          <!-- Accessible container with tabindex="0" for keyboard navigation -->
+          <div class="bg-white shadow-lg rounded-lg overflow-hidden transition transform hover:scale-105" tabindex="0">
+            <!-- Image with descriptive alt text -->
+            <img class="w-full h-48 object-cover" src="Images/IT Maintenance Operations.jpeg" alt="Class 1: Maintenance Operations">
+            <div class="p-6 text-left">
+              <!-- Card title with strong contrast -->
+              <h3 class="font-bold text-lg text-gray-900 mb-2">Maintenance Operations</h3>
+              <!-- Supporting text with appropriate color contrast -->
+              <p class="text-gray-700">Covers machine operation, maintenance, troubleshooting, and safety procedures, leading to an OSHA 10-hour course completion card.</p>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="bg-white shadow-lg rounded-lg overflow-hidden transition transform hover:scale-105" tabindex="0">
+            <img class="w-full h-48 object-cover" src="Images/basic mechanical systems .jpeg" alt="Class 2: Basic Mechanical Systems">
+            <div class="p-6 text-left">
+              <h3 class="font-bold text-lg text-gray-900 mb-2">Basic Mechanical Systems</h3>
+              <p class="text-gray-700">Teaches mechanical power transmission safety, installation, alignment, lubrication, and troubleshooting of chains, belts, bearings, and gear trains.</p>
+            </div>
+          </div>
+          <!-- Card 3  -->
+          <div class="bg-white shadow-lg rounded-lg overflow-hidden transition transform hover:scale-105" tabindex="0">
+            <img class="w-full h-48 object-cover" src="Images/Basic hydraulic systems.PNG" alt="Class 3: Basic Hydraulic Systems">
+            <div class="p-6 text-left">
+              <h3 class="font-bold text-lg text-gray-900 mb-2">Basic Hydraulic Systems</h3>
+              <p class="text-gray-700">Introduces hydraulic system principles, components, safety, and troubleshooting, focusing on fluid power schematics and regulations.</p>
+            </div>
+          </div>
+          <!-- Card 4  -->
+          <div class="bg-white shadow-lg rounded-lg overflow-hidden transition transform hover:scale-105" tabindex="0">
+            <img class="w-full h-48 object-cover" src="Images/Basic pneumatic systems.jpeg" alt="Class 4: Basic Pneumatic Systems">
+            <div class="p-6 text-left">
+              <h3 class="font-bold text-lg text-gray-900 mb-2">Basic Pneumatic Systems</h3>
+              <p class="text-gray-700">Explains pneumatic principles, including air compressors, valves, cylinders, motors, and safety regulations in fluid power systems.</p>
+            </div>
+          </div>
+          <!-- Card 5  -->
+          <div class="bg-white shadow-lg rounded-lg overflow-hidden transition transform hover:scale-105" tabindex="0">
+            <img class="w-full h-48 object-cover" src="Images/electrical systems.jpg" alt="Class 4: Electrical Systems">
+            <div class="p-6 text-left">
+              <h3 class="font-bold text-lg text-gray-900 mb-2">Electrical Systems</h3>
+              <p class="text-gray-700">Introduces AC/DC electrical fundamentals, motor control circuits, schematics, wiring diagrams, and electrical components like relays and switches.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- FAQs Section -->
+    <section id="FAQs" class="bg-white py-10 sm:py-16 md:py-24">
+      <!-- Container for central alignment and responsive padding -->
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Title with strong contrast and responsive size -->
+        <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-12 text-center">Program FAQs</h2>
+        <!-- Container for FAQ items -->
+        <div class="max-w-4xl mx-auto">
+          <!-- FAQ 1 -->
+          <!-- Using Alpine.js for toggling FAQ content visibility -->
+          <!-- Added aria-expanded for accessibility, ensuring screen readers know if the section is open or closed -->
+          <div x-data="{ open: false }" class="border-b border-gray-300 py-6">
+            <button @click="open = !open" aria-expanded="false" :aria-expanded="open.toString()" class="w-full text-left flex justify-between items-center text-xl font-semibold text-gray-900"> What is Mechatronics Industrial Automation? <span x-show="!open" aria-hidden="true">+</span>
+              <span x-show="open" aria-hidden="true">-</span>
+            </button>
+            <!-- FAQ Content -->
+            <!-- Transition for smooth open/close animation -->
+            <div x-show="open" x-transition class="mt-4 text-gray-700 text-lg">
+              <p>It is an interdisciplinary field that combines mechanical, electrical, and computer engineering to automate and improve industrial systems.</p>
+            </div>
+          </div>
+          <!-- FAQ 2  -->
+          <div x-data="{ open: false }" class="border-b border-gray-300 py-6">
+            <button @click="open = !open" aria-expanded="false" :aria-expanded="open.toString()" class="w-full text-left flex justify-between items-center text-xl font-semibold text-gray-900"> What are the career prospects after completing the program? <span x-show="!open" aria-hidden="true">+</span>
+              <span x-show="open" aria-hidden="true">-</span>
+            </button>
+            <div x-show="open" x-transition class="mt-4 text-gray-700 text-lg">
+              <p>Graduates can pursue careers in various industries as automation engineers, maintenance technicians, and more.</p>
+            </div>
+          </div>
+          <!-- FAQ 3 -->
+          <div x-data="{ open: false }" class="border-b border-gray-300 py-6">
+            <button @click="open = !open" aria-expanded="false" :aria-expanded="open.toString()" class="w-full text-left flex justify-between items-center text-xl font-semibold text-gray-900"> What are the prerequisites for enrolling? <span x-show="!open" aria-hidden="true">+</span>
+              <span x-show="open" aria-hidden="true">-</span>
+            </button>
+            <div x-show="open" x-transition class="mt-4 text-gray-700 text-lg">
+              <p>No, the program is open to all students with an interest in industrial automation and robotics.</p>
+            </div>
+          </div>
+          <!-- FAQ 4 -->
+          <div x-data="{ open: false }" class="border-b border-gray-300 py-6">
+            <button @click="open = !open" aria-expanded="false" :aria-expanded="open.toString()" class="w-full text-left flex justify-between items-center text-xl font-semibold text-gray-900"> How can I apply for the program? <span x-show="!open" aria-hidden="true">+</span>
+              <span x-show="open" aria-hidden="true">-</span>
+            </button>
+            <div x-show="open" x-transition class="mt-4 text-gray-700 text-lg">
+              <p>Visit our application page and follow the instructions to submit your application online.</p>
+            </div>
+          </div>
+          <!-- FAQ 5 -->
+          <div x-data="{ open: false }" class="border-b border-gray-300 py-6">
+            <button @click="open = !open" aria-expanded="false" :aria-expanded="open.toString()" class="w-full text-left flex justify-between items-center text-xl font-semibold text-gray-900"> What kind of support is available for students? <span x-show="!open" aria-hidden="true">+</span>
+              <span x-show="open" aria-hidden="true">-</span>
+            </button>
+            <div x-show="open" x-transition class="mt-4 text-gray-700 text-lg">
+              <p>We offer career counseling, internship placements, and access to state-of-the-art labs and resources.</p>
+            </div>
+          </div>
+          <!-- FAQ 6 -->
+          <div x-data="{ open: false }" class="border-b border-gray-300 py-6">
+            <button @click="open = !open" aria-expanded="false" :aria-expanded="open.toString()" class="w-full text-left flex justify-between items-center text-xl font-semibold text-gray-900"> What can I earn from this program? <span x-show="!open" aria-hidden="true">+</span>
+              <span x-show="open" aria-hidden="true">-</span>
+            </button>
+            <div x-show="open" x-transition class="mt-4 text-gray-700 text-lg">
+              <p>Earn a certificate or an Associate degree. The program begins in Spring 2025. Students can earn a certificate or associate degree. The program prepares students for the National Institute of Metal Working Skills (NIMS) Industrial Technician Maintenance (ITM) credentialing program.</p>
+            </div>
+          </div>
+          <!-- Call-to-Action Button -->
+          <!-- Button with hover and focus effects, as well as clear focus ring for keyboard accessibility -->
+          <div class="mt-8 text-center">
+            <a href="https://www.cloviscollege.edu/admissions-and-aid/admissions/index.html" class="inline-block bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 transition-transform duration-300 ease-in-out transform hover:scale-105"> Sign Up for Spring 2025 </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="bg-white py-10 sm:py-16 md:py-24">
+      <!-- Container with responsive padding and central alignment -->
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <!-- Section title with an icon, using strong contrast and responsive size -->
+        <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-10 flex items-center justify-center">
+          <!-- Font Awesome robot icon for decoration -->
+          <i class="fas fa-robot text-3xl mr-3"></i> Mechatronics Innovators
+        </h2>
+        <!-- YouTube Video Embed -->
+        <!-- Responsive container with padding for 16:9 aspect ratio -->
+        <div class="w-full md:w-3/4 lg:w-2/3 mx-auto">
+          <div class="relative shadow-lg rounded-lg" style="padding-bottom: 56.25%; height: 0; overflow: hidden;">
+            <!-- Embedded YouTube video with accessible attributes -->
+            <iframe class="absolute top-0 left-0 w-full h-full rounded-lg" src="https://www.youtube.com/embed/2vu1Wsu5T-s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer Section -->
+    <footer class="bg-blue-50 py-16">
+      <!-- Container for central alignment and padding -->
+      <div class="container mx-auto text-center">
+        <!-- College Information Section -->
+        <div class="mb-6">
+          <!-- College Logo with descriptive alt text for accessibility -->
+          <img src="Images/ccc_cmyk_primary.png" alt="Clovis Community College Logo" class="mx-auto h-48 mb-4">
+          <!-- College contact details with strong color contrast -->
+          <p class="text-gray-900 text-lg font-semibold">Clovis Community College</p>
+          <p class="text-gray-700 text-lg">10309 North Willow Avenue</p>
+          <p class="text-gray-700 text-lg">Fresno, CA 93730</p>
+          <p class="text-gray-700 text-lg">559-325-5200</p>
+          <p class="text-gray-700 text-lg">Applicant ID: 59749019</p>
+        </div>
+        <!-- Social Media Links Section -->
+        <!-- Flexbox for spacing out the social media links -->
+        <div class="flex justify-center space-x-6 mt-8">
+          <!-- Facebook Link -->
+          <!-- Descriptive aria-label ensures screen readers can convey the purpose of the link -->
+          <a href="https://facebook.com" class="text-blue-600 hover:text-blue-800 text-2xl" aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <!-- Twitter Link -->
+          <a href="https://twitter.com" class="text-blue-600 hover:text-blue-800 text-2xl" aria-label="Twitter">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <!-- Instagram Link -->
+          <a href="https://instagram.com" class="text-blue-600 hover:text-blue-800 text-2xl" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <!-- LinkedIn Link -->
+          <a href="https://linkedin.com" class="text-blue-600 hover:text-blue-800 text-2xl" aria-label="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+          </a>
+        </div>
+      </div>
+    </footer>
+    <!-- AOS (Animate on Scroll) JavaScript for animations -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+  </body>
+</html>
